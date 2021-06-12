@@ -14,7 +14,16 @@ from teachers.html_formatters import format_records
     "last_name": fields.Str(
         required=False
     ),
-    "birthdate": fields.Date(
+    "age": fields.Int(
+        required=False
+    ),
+    "address": fields.Str(
+        required=False
+    ),
+    "email": fields.Str(
+        required=False
+    ),
+    "groups_number": fields.Int(
         required=False
     )},
     location="query"
