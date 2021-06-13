@@ -1,0 +1,3 @@
+[flake8]
+exclude=Django_hell,migrations
+max-line-length=120

@@ -1,6 +1,8 @@
-from django.db import models
-from faker import Faker
 import random
+
+from django.db import models
+
+from faker import Faker
 
 
 # Create your models here.
@@ -29,4 +31,3 @@ class Teachers(models.Model):
             )
 
             th.save()
-
