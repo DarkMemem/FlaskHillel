@@ -33,7 +33,7 @@ from webargs.djangoparser import use_args
     location="query"
 )
 @csrf_exempt
-def get_students(request, args):
+def get_groups(request, args):
 
     groups = Groups.objects.all()
 
@@ -77,7 +77,7 @@ def get_students(request, args):
 
 
 @csrf_exempt
-def create_students(request):
+def create_group(request):
 
     if request.method == 'GET':
 

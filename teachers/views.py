@@ -77,7 +77,7 @@ def get_teachers(request, args):
 
 
 @csrf_exempt
-def create_teachers(request):
+def create_teacher(request):
 
     if request.method == 'GET':
 
@@ -93,7 +93,7 @@ def create_teachers(request):
 
     html_form = f"""
     <form method="post">
-        {form.as_p()}
+         {form.as_p()}
       <input type="submit" value="Submit">
     </form>
     """

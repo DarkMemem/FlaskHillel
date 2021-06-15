@@ -23,10 +23,10 @@ from teachers import views as app_views_teachers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('students/', app_views_groups.get_students),
-    path('students/create', app_views_groups.get_students),
+    path('groups/', app_views_groups.get_groups),
+    path('groups/create/', app_views_groups.create_group),
     path('teachers/', app_views_teachers.get_teachers),
-    path('teachers/create/', app_views_teachers.create_teachers),
+    path('teachers/create/', app_views_teachers.create_teacher),
 ]
 
 if settings.DEBUG:
