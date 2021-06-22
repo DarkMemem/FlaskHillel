@@ -25,8 +25,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('groups/', app_views_groups.get_groups),
     path('groups/create/', app_views_groups.create_group),
+    path('groups/update/<int:pk>', app_views_groups.update_group),
     path('teachers/', app_views_teachers.get_teachers),
     path('teachers/create/', app_views_teachers.create_teacher),
+    path('teachers/update/<int:pk>', app_views_teachers.update_teacher),
 ]
 
 if settings.DEBUG:

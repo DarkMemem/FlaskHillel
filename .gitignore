@@ -1,4 +1,5 @@
 .idea/
 env/
 *.pyc
-Django_Hell/
+django_hell/
+db.sqlite3.sqbpro
