@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render # noqa
 from django.views.decorators.csrf import csrf_exempt
 
-from teachers.forms import TeachersCreateForm
+from teachers.forms import TeachersCreateForm, TeachersUpdateForm
 from teachers.html_formatters import format_records
 from teachers.models import Teachers
 
@@ -25,6 +25,9 @@ from webargs.djangoparser import use_args
         required=False
     ),
     "email": fields.Str(
+        required=False
+    ),
+    "phone_number": fields.Int(
         required=False
     ),
     "groups_number": fields.Int(
@@ -60,6 +63,9 @@ def get_teachers(request, args):
                 <label>Email:</label>
                 <input type="email" name="email"><br><br>
 
+                <label>Phone Number:</label>
+                <input type="number" name="group_number"><br><br>
+
                 <label>Group Number:</label>
                 <input type="number" name="group_number" min=0, max=10><br><br>
 
@@ -93,8 +99,40 @@ def create_teacher(request):
 
     html_form = f"""
     <form method="post">
-         {form.as_p()}
+        {form.as_p()}
       <input type="submit" value="Submit">
+    </form>
+    """
+
+    response = html_form
+
+    return HttpResponse(response)
+
+
+@csrf_exempt
+def update_teacher(request, pk):
+
+    teacher = Teachers.objects.get(id=pk)
+
+    if request.method == 'GET':
+
+        form = TeachersUpdateForm(instance=teacher)
+
+    elif request.method == 'POST':
+
+        form = TeachersCreateForm(
+            instance=teacher,
+            data=request.POST
+        )
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/teachers/')
+
+    html_form = f"""
+    <form method="post">
+        {form.as_p()}
+      <input type="submit" value="Save">
     </form>
     """
 

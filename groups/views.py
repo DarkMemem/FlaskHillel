@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render # noqa
 from django.views.decorators.csrf import csrf_exempt
 
-from groups.forms import GroupsCreateForm
+from groups.forms import GroupsCreateForm, GroupsUpdateForm
 from groups.html_formatters import format_records
 from groups.models import Groups
 
@@ -25,6 +25,9 @@ from webargs.djangoparser import use_args
         required=False
     ),
     "email": fields.Str(
+        required=False
+    ),
+    "phone_number": fields.Int(
         required=False
     ),
     "groups_number": fields.Int(
@@ -60,10 +63,13 @@ def get_groups(request, args):
                 <label>Email:</label>
                 <input type="email" name="email"><br><br>
 
+                <label>Phone Number:</label>
+                <input type="number" name="phone_number"><br><br>
+
                 <label>Group Number:</label>
                 <input type="number" name="group_number" min=0, max=10><br><br>
 
-                <input type="submit" value="Submit">
+                <input type="submit" value="Search">
 
            </form>
         </body>
@@ -89,12 +95,44 @@ def create_group(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/students/')
+            return HttpResponseRedirect('/groups/')
 
     html_form = f"""
     <form method="post">
         {form.as_p()}
-      <input type="submit" value="Submit">
+      <input type="submit" value="Create">
+    </form>
+    """
+
+    response = html_form
+
+    return HttpResponse(response)
+
+
+@csrf_exempt
+def update_group(request, pk):
+
+    group = Groups.objects.get(id=pk)
+
+    if request.method == 'GET':
+
+        form = GroupsUpdateForm(instance=group)
+
+    elif request.method == 'POST':
+
+        form = GroupsCreateForm(
+            instance=group,
+            data=request.POST
+        )
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/groups/')
+
+    html_form = f"""
+    <form method="post">
+        {form.as_p()}
+      <input type="submit" value="Save">
     </form>
     """
 
