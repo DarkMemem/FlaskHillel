@@ -21,8 +21,8 @@ class Groups(models.Model):
         adult_validator
     ])
     address = models.CharField(max_length=60, null=True)
-    email = models.EmailField(max_length=40, null=False)
-    phone_number = models.CharField(max_length=10, null=False)
+    email = models.EmailField(max_length=50, null=False)
+    phone_number = models.CharField(max_length=15, unique=True, blank=True, null=False)
     groups_number = models.IntegerField(null=True)
 
     def __str__(self):

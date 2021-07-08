@@ -17,18 +17,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
-from groups import views as app_views_groups
-
-from teachers import views as app_views_teachers
+from core.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('groups/', app_views_groups.get_groups),
-    path('groups/create/', app_views_groups.create_group),
-    path('groups/update/<int:pk>', app_views_groups.update_group),
-    path('teachers/', app_views_teachers.get_teachers),
-    path('teachers/create/', app_views_teachers.create_teacher),
-    path('teachers/update/<int:pk>', app_views_teachers.update_teacher),
+    path('', index, name='index'),
+    path('groups/', include('groups.urls')),
+    path('teachers/', include('teachers.urls')),
 ]
 
 if settings.DEBUG:
