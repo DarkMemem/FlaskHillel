@@ -1,5 +1,7 @@
+# import django_filters
+
 from django.forms import ModelForm
-from django.core.validators import ValidationError
+from django.core.validators import ValidationError # noqa
 
 from teachers.models import Teachers
 
@@ -42,8 +44,6 @@ class TeachersCreateForm(ModelForm):
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
-        if Teachers.objects.filter(phone_number=phone_number).exclude(id=self.instance.id).exists():
-            raise ValidationError("Already exist")
         result = self.normalize_phone_number(phone_number)
         return result
 

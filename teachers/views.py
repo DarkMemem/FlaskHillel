@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render # noqa
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from teachers.forms import TeachersCreateForm, TeachersUpdateForm
 from teachers.models import Teachers
@@ -44,7 +45,7 @@ def get_teachers(request, args):
     return render(
         request=request,
         template_name='teachers/list.html',
-        context={'teachers': teachers}
+        context={'teacher': teachers}
     )
 
 
@@ -60,7 +61,7 @@ def create_teacher(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers/')
+            return HttpResponseRedirect(reverse('teachers:list'))
 
     return render(
             request=request,
@@ -71,7 +72,7 @@ def create_teacher(request):
 
 def update_teacher(request, pk):
 
-    teacher = Teachers.objects.get(id=pk)
+    teacher = get_object_or_404(Teachers, id=pk)
 
     if request.method == 'GET':
 
@@ -86,10 +87,26 @@ def update_teacher(request, pk):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers/')
+            return HttpResponseRedirect(reverse('teachers:list'))
 
     return render(
         request=request,
         template_name='teachers/update.html',
         context={'form': form}
+    )
+
+
+def delete_teacher(request, pk):
+
+    teachers = get_object_or_404(Teachers, id=pk)
+    if request.method == 'POST':
+        teachers.delete()
+        return HttpResponseRedirect(reverse('teachers:list'))
+
+    return render(
+        request=request,
+        template_name='teachers/delete.html',
+        context={
+            'teacher': teachers
+        }
     )

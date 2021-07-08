@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from django.core.validators import ValidationError
+from django.core.validators import ValidationError # noqa
 
 from groups.models import Groups
 
@@ -15,6 +15,9 @@ class GroupsCreateForm(ModelForm):
             'email',
             'phone_number',
             'groups_number',
+            'birthdate',
+            'enroll_date',
+            'graduate_date'
         ]
 
     @staticmethod
@@ -42,8 +45,6 @@ class GroupsCreateForm(ModelForm):
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
-        if Groups.objects.filter(phone_number=phone_number).exclude(id=self.instance.id).exists():
-            raise ValidationError("Already exist")
         result = self.normalize_phone_number(phone_number)
         return result
 
@@ -59,4 +60,7 @@ class GroupsUpdateForm(ModelForm):
             'email',
             'phone_number',
             'groups_number',
+            'birthdate',
+            'enroll_date',
+            'graduate_date'
         ]

@@ -32,10 +32,30 @@
 
     </form>
 
-    {% for groups in groups %}
-
-        <a href="{% url 'groups:update' groups.id %}">EDIT</a> {{groups}}<br>
-
-    {% endfor %}
-
+    <table class="table table-hover">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Age</th>
+            <th>Birthdate</th>
+            <th>Group number</th>
+            <th><i class="bi bi-vector-pen"></i></th>
+            <th><i class="bi bi-trash"></i></th>
+        </tr>
+        {% for groups in groups %}
+        <tr>
+            <td>{{ groups.first_name }}</td>
+            <td>{{ groups.last_name }}</td>
+            <td>{{ groups.email }}</td>
+            <td>{{ groups.phone_number }}</td>
+            <td>{{ groups.age }}</td>
+            <td>{{ groups.birthdate }}</td>
+            <td>{{ groups.groups_number }}</td>
+            <td><a href="{% url 'groups:update' groups.id %}">EDIT</a></td>
+            <td><a href="{% url 'groups:delete' groups.id %}">DELETE</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

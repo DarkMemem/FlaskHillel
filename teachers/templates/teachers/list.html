@@ -4,7 +4,7 @@
 <title>Teachers list</title>
 {% endblock %}
 
-{%block content%}
+{% block content %}
     <form method="get">
 
         <label>First name:</label>
@@ -32,10 +32,32 @@
 
     </form>
 
-    {% for teachers in teachers %}
+    <table class="table table-hover">
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Phone number</th>
+            <th>Age</th>
+            <th>Birthdate</th>
+            <th>Group Number</th>
+            <th><i class="bi bi-vector-pen"></i></th>
+            <th><i class="bi bi-trash"></i></th>
+        </tr>
+        {% for teacher in teacher %}
+        <tr>
+            <td>{{ teacher.first_name }}</td>
+            <td>{{ teacher.last_name }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.phone_number }}</td>
+            <td>{{ teacher.age }}</td>
+            <td>{{ teacher.birthdate }}</td>
+            <td>{{ teacher.group_number }}</td>
+            <td><a href="{% url 'teachers:update' teacher.id %}">EDIT</a></td>
+            <td><a href="{% url 'teachers:delete' teacher.id %}">DELETE </a></td>
+        </tr>
+        {% endfor %}
+    </table>
 
-        <a href="{% url 'teachers:update' teachers.id %}">EDIT</a> {{teachers}}<br>
-
-    {% endfor %}
 
 {% endblock %}
