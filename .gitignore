@@ -1,6 +1,6 @@
-.idea/
-env/
-*.pyc
-django_hell/
-teachers/migrations
-groups/migrations
+#.idea/
+#env/
+#*.pyc
+#django_hell/
+#teachers/migrations
+#students/migrations
