@@ -5,11 +5,12 @@ from django.db import models
 
 from faker import Faker
 
-from teachers.validators import adult_validator
-
+from groups.validators import adult_validator
 
 # Create your models here.
-class Teachers(models.Model):
+
+
+class Groups(models.Model):
     first_name = models.CharField(max_length=20, null=False, validators=[
         MinLengthValidator(2),
     ])
@@ -29,10 +30,10 @@ class Teachers(models.Model):
                f" {self.groups_number}"
 
     @staticmethod
-    def generate_teachers(count):
+    def generate_groups(count):
         faker = Faker("ru_Ru")
         for _ in range(count):
-            th = Teachers(
+            gr = Groups(
                 first_name=faker.first_name(),
                 last_name=faker.last_name(),
                 age=str(random.randint(16, 55)),
@@ -42,4 +43,4 @@ class Teachers(models.Model):
                 groups_number=str(random.randint(1, 10))
             )
 
-            th.save()
+            gr.save()

@@ -1,12 +1,12 @@
 from django.forms import ModelForm
 from django.core.validators import ValidationError
 
-from teachers.models import Teachers
+from groups.models import Groups
 
 
-class TeachersCreateForm(ModelForm):
+class GroupsCreateForm(ModelForm):
     class Meta:
-        model = Teachers
+        model = Groups
         fields = [
             'first_name',
             'last_name',
@@ -42,15 +42,15 @@ class TeachersCreateForm(ModelForm):
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
-        if Teachers.objects.filter(phone_number=phone_number).exclude(id=self.instance.id).exists():
+        if Groups.objects.filter(phone_number=phone_number).exclude(id=self.instance.id).exists():
             raise ValidationError("Already exist")
         result = self.normalize_phone_number(phone_number)
         return result
 
 
-class TeachersUpdateForm(ModelForm):
+class GroupsUpdateForm(ModelForm):
     class Meta:
-        model = Teachers
+        model = Groups
         fields = [
             'first_name',
             'last_name',

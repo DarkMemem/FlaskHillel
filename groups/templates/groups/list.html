@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Teachers list</title>
+<title>Groups list</title>
 {% endblock %}
 
 {%block content%}
@@ -32,9 +32,9 @@
 
     </form>
 
-    {% for teachers in teachers %}
+    {% for groups in groups %}
 
-        <a href="{% url 'teachers:update' teachers.id %}">EDIT</a> {{teachers}}<br>
+        <a href="{% url 'groups:update' groups.id %}">EDIT</a> {{groups}}<br>
 
     {% endfor %}
 
