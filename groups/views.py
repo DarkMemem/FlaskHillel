@@ -1,8 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render # noqa
 
-from teachers.forms import TeachersCreateForm, TeachersUpdateForm
-from teachers.models import Teachers
+from groups.forms import GroupsCreateForm, GroupsUpdateForm
+from groups.models import Groups
 
 from webargs import fields
 from webargs.djangoparser import use_args
@@ -33,63 +33,63 @@ from webargs.djangoparser import use_args
     )},
     location="query"
 )
-def get_teachers(request, args):
+def get_groups(request, args):
 
-    teachers = Teachers.objects.all()
+    groups = Groups.objects.all()
 
     for param_name, param_value in args.items():
         if param_value:
-            teachers = teachers.filter(**{param_name: param_value})
+            groups = groups.filter(**{param_name: param_value})
 
     return render(
         request=request,
-        template_name='teachers/list.html',
-        context={'teachers': teachers}
+        template_name='groups/list.html',
+        context={'groups': groups},
     )
 
 
-def create_teacher(request):
+def create_group(request):
 
     if request.method == 'GET':
 
-        form = TeachersCreateForm()
+        form = GroupsCreateForm()
 
     elif request.method == 'POST':
 
-        form = TeachersCreateForm(data=request.POST)
+        form = GroupsCreateForm(data=request.POST)
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers/')
+            return HttpResponseRedirect('/groups/')
 
     return render(
-            request=request,
-            template_name='teachers/create.html',
-            context={'form': form}
-        )
+        request=request,
+        template_name="groups/create.html",
+        context={'form': form},
+    )
 
 
-def update_teacher(request, pk):
+def update_group(request, pk):
 
-    teacher = Teachers.objects.get(id=pk)
+    group = Groups.objects.get(id=pk)
 
     if request.method == 'GET':
 
-        form = TeachersUpdateForm(instance=teacher)
+        form = GroupsUpdateForm(instance=group)
 
     elif request.method == 'POST':
 
-        form = TeachersCreateForm(
-            instance=teacher,
+        form = GroupsCreateForm(
+            instance=group,
             data=request.POST
         )
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers/')
+            return HttpResponseRedirect('/groups/')
 
     return render(
         request=request,
-        template_name='teachers/update.html',
-        context={'form': form}
+        template_name="groups/update.html",
+        context={'form': form},
     )
