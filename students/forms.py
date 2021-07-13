@@ -1,3 +1,4 @@
+import django_filters
 from django.forms import ModelForm
 from django.core.validators import ValidationError # noqa
 
@@ -64,3 +65,13 @@ class StudentsUpdateForm(ModelForm):
             'enroll_date',
             'graduate_date'
         ]
+
+
+class StudentsFilter(django_filters.FilterSet):
+    class Meta:
+        model = Students
+        fields = {
+            'age': ['lt', 'gt'],
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith'],
+        }
