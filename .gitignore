@@ -2,4 +2,8 @@
 env/
 *.pyc
 django_hell/
+__pycache__/
+buffer.txt
 **/migrations/**
+!**/migrations
+!**/migrations/__init__.py
