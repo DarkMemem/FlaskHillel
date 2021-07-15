@@ -16,7 +16,6 @@ class TeachersCreateForm(ModelForm):
             'address',
             'email',
             'phone_number',
-            'groups_number',
         ]
 
     @staticmethod
@@ -58,7 +57,6 @@ class TeachersUpdateForm(ModelForm):
             'address',
             'email',
             'phone_number',
-            'groups_number',
         ]
 
 

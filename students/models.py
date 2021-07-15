@@ -7,7 +7,7 @@ from django.db import models
 
 from faker import Faker
 
-from students.validators import adult_validator # noqa
+from groups.models import Group
 
 
 class Students(models.Model):
@@ -21,7 +21,7 @@ class Students(models.Model):
     address = models.CharField(max_length=60, null=True)
     email = models.EmailField(max_length=50, null=False)
     phone_number = models.CharField(max_length=15, unique=True, blank=True, null=False)
-    groups_number = models.IntegerField(null=True)
+    groups_number = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, related_name='students', blank=True)
     birthdate = models.DateField(default=datetime.date.today)
     enroll_date = models.DateField(default=datetime.date.today, null=True)
     graduate_date = models.DateField(default=datetime.date.today, null=True)
@@ -40,7 +40,6 @@ class Students(models.Model):
                 address=faker.city(),
                 email=faker.email(),
                 phone_number=faker.phone_number(),
-                groups_number=str(random.randint(1, 10)),
                 birthdate=faker.date_between(start_date='-65y', end_date='-18y'),
             )
             st.age = relativedelta(datetime.date.today(), st.birthdate).years

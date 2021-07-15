@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
     <title>Delete student</title>
 {% endblock %}
@@ -7,9 +9,9 @@
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        {{form.as_p}}
+        {{form | crispy}}
         <p>Are you sure to delete {{students.first_name}} {{students.last_name}}?</p>
-        <input type="submit" value="Delete">
-        <a href="{% url 'students:list' %}">Cancel</a>
+        <input class="btn btn-danger mt-3"  type="submit" value="Delete">
+        <a class="btn btn-primary mt-3"  href="{% url 'students:list' %}">Cancel</a>
     </form>
 {% endblock %}

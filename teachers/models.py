@@ -21,12 +21,10 @@ class Teachers(models.Model):
     address = models.CharField(max_length=60, null=True)
     email = models.EmailField(max_length=50, null=False)
     phone_number = models.CharField(max_length=15, unique=True, blank=True, null=False)
-    groups_number = models.IntegerField(null=True)
     birthdate = models.DateField(default=datetime.date.today)
 
     def __str__(self):
-        return f"{self.first_name}, {self.last_name}, {self.age},{self.address}, {self.email}, {self.phone_number}," \
-               f" {self.groups_number}"
+        return f"{self.first_name}, {self.last_name}, {self.age},{self.address}, {self.email}, {self.phone_number},"
 
     @staticmethod
     def generate_teachers(count):
@@ -38,7 +36,6 @@ class Teachers(models.Model):
                 address=faker.city(),
                 email=faker.email(),
                 phone_number=faker.phone_number(),
-                groups_number=str(random.randint(1, 10)),
                 birthdate=faker.date_between(start_date='-65y', end_date='-18y'),
             )
             th.age = relativedelta(datetime.date.today(), th.birthdate).years
