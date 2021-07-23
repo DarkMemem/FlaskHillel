@@ -137,6 +137,14 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
+**/__pycache__/**
+!**/__pycache__
+
+
 .idea
 env/
 
